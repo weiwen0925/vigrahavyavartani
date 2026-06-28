@@ -1,0 +1,44 @@
+# 迴諍論 · 九門合一 — robots.txt
+# https://weiwen0925.github.io/vigrahavyavartani/
+
+# 一般搜尋引擎：允許索引
+User-agent: *
+Allow: /
+Disallow: /private/
+
+# AI 訓練爬蟲：拒絕
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: GoogleOther
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+# Sitemap
+Sitemap: https://weiwen0925.github.io/vigrahavyavartani/sitemap.xml
