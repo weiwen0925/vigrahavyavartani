@@ -1139,5 +1139,58 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape")MODAL.classL
 upd();var c=0,iv=setInterval(function(){upd();if(++c>40)clearInterval(iv);},250);
 })();</script>
 <!--WY-VVP4:END-->
+<!--WY-VVP5:BEGIN-->
+<style id="wy-vvp5-css">
+.vvp5-fabbox{position:fixed;right:22px;bottom:78px;z-index:121;display:none;}
+.vvp5-fabbox.show{display:block;}
+.vvp5-btn{display:inline-flex;align-items:center;gap:9px;font-family:"Noto Sans TC",sans-serif;letter-spacing:.5px;color:#f7ecd2;background:linear-gradient(135deg,#573f38,#2e2420);padding:8px 15px;border-radius:22px;border:1px solid rgba(184,134,11,.6);box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;opacity:.96;transition:opacity .3s,transform .2s,box-shadow .2s;}
+.vvp5-btn:hover{opacity:1;transform:translateY(-2px);box-shadow:0 6px 22px rgba(184,134,11,.5);}
+.vvp5-ic{font-size:15px;line-height:1;color:#ecc978;}
+.vvp5-ls{display:flex;flex-direction:column;align-items:flex-start;line-height:1.22;}
+.vvp5-l1{font-size:10.5px;font-weight:500;opacity:.82;white-space:nowrap;}
+.vvp5-l2{font-size:13px;font-weight:700;color:#faf1d8;white-space:nowrap;}
+.vvp5-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(28,20,12,.58);padding:16px;}
+.vvp5-modal.open{display:flex;}
+.vvp5-card{position:relative;background:#fbf7ee;max-width:900px;width:100%;max-height:88vh;overflow:auto;border:1px solid #d8c8ac;border-radius:14px;padding:30px 24px 22px;box-shadow:0 18px 50px rgba(0,0,0,.4);}
+.vvp5-card h3{margin:0 0 2px;font-family:"Noto Serif TC",serif;font-size:20px;color:#8b5e3c;}
+.vvp5-card .sub{margin:0 0 14px;font-family:"Noto Sans TC",sans-serif;font-size:13px;color:#6b5b4b;}
+.vvp5-close{position:absolute;top:12px;right:16px;width:34px;height:34px;border:none;border-radius:50%;background:#efe6d4;color:#8b5e3c;font-size:22px;line-height:1;cursor:pointer;z-index:2;}
+.vvp5-close:hover{background:#e3d5b8;}
+.vvp5-tbl{width:100%;border-collapse:collapse;font-family:"Noto Sans TC",sans-serif;font-size:13px;margin:.3em 0 1.2em;}
+.vvp5-tbl caption{font-family:"Noto Serif TC",serif;font-weight:700;color:#8b5e3c;font-size:14.5px;text-align:left;margin:.6em 0 .35em;line-height:1.5;}
+.vvp5-tbl th,.vvp5-tbl td{border:1px solid #d8c8ac;padding:.45em .6em;text-align:left;vertical-align:top;line-height:1.6;}
+.vvp5-tbl thead th{background:#8b5e3c;color:#f7ecd2;font-weight:700;}
+.vvp5-tbl td:first-child{white-space:nowrap;color:#8b5e3c;font-weight:700;background:#f0e8d8;}
+.vvp5-tbl tbody tr:nth-child(even) td{background:#f6efe0;}
+.vvp5-tbl b{color:#8b2500;}
+.vvp5-note{font-size:12px;color:#5a4e3a;line-height:1.9;background:#f6efe0;border-left:3px solid #c4956a;border-radius:0 6px 6px 0;padding:10px 13px;margin:4px 0 0;}
+.vvp5-note b{color:#8b2500;}
+@media(max-width:900px){.vvp5-fabbox{right:14px;}.vvp5-tbl{font-size:11.5px;}.vvp5-card{padding:26px 14px 16px;}}
+</style>
+<div class="vvp5-fabbox" id="vvp5Box"><button class="vvp5-btn" id="vvp5Btn" type="button" aria-label="開啟全景總表"><span class="vvp5-ic">▦</span><span class="vvp5-ls"><span class="vvp5-l1">本品 · 龍樹五步反擊</span><span class="vvp5-l2">因緣和合空為動詞 · 幻人喻能所平權</span></span></button></div><div class="vvp5-modal" id="vvp5Modal" role="dialog" aria-modal="true" aria-label="全景總表"><div class="vvp5-card"><button class="vvp5-close" id="vvp5Close" type="button" aria-label="關閉">×</button><h3>迴諍論·第五品 · 全景總表</h3><p class="sub">迴諍論·第五品｜五步絕地反擊・語言因緣和合・重新定義空・幻人喻・無雙重標準・破勿聲喻</p><table class="vvp5-tbl"><caption>一、五步反擊總覽（本品主骨架）</caption><thead><tr><th>步驟</th><th>內容</th></tr></thead><tbody><tr><td>Step1·因緣和合</td><td>證明語言之因緣和合——咽喉脣舌齒根齗鼻頂等發聲器官逐一檢視，因中無、離散中無、和合中亦無，語言無自體</td></tr><tr><td>Step2·重新定義空</td><td>空非虛無，空即因緣生——法無自體則須因緣，若有自體何用因緣？以輿瓶衣薪草水蜜乳寒熱風八例證空語世間受用</td></tr><tr><td>Step3·幻人喻</td><td>化人於化人，幻人於幻人——能遮化人是空，所遮化人亦空，能所平權；無自體之語言正是破除無自體妄執的完美武器</td></tr><tr><td>Step4·無雙重標準</td><td>言語無自體，所說亦無體——我不說語言不空餘法皆空，語言與諸法平權，邏輯完美閉環，不須另立勝因</td></tr><tr><td>Step5·破勿聲喻</td><td>此非我譬喻——聲遮聲是以實破實（物理壓制），我是以無自體語遮無自體法（哲學除妄），本質截然不同</td></tr></tbody></table><table class="vvp5-tbl"><caption>二、五步反擊的核心論證（因緣生·空為動詞·能所平權）</caption><thead><tr><th>環節</th><th>內容</th></tr></thead><tbody><tr><td>敵宗死角詰問</td><td>若一切無體，言語是一切，言語自無體，何能遮彼體？——三段論：萬物空→言語亦空→空的言語沒有力量</td></tr><tr><td>龍樹三步破局</td><td>直面命題（坦承語言確實空）→重構定義（空即因緣生非虛無）→同等破斥（能所平權，以空語破空執）</td></tr><tr><td>化女喻雙刃</td><td>如愚夫妄取化女身而生欲心，化女無實體，欲心卻真實地起了——作用力可從無自體之物身上發出</td></tr><tr><td>以幻破幻對稱性</td><td>空幻的語言正好對接空幻的執著，兩個虛影在同一維度上彼此抵消，不需實體之劍砍虛幻的執著</td></tr><tr><td>世諦真諦橋樑</td><td>若不依世諦，不得證真諦；若不證真諦，不得涅槃證——中觀非廢棄世俗，而是透視世俗以證勝義</td></tr></tbody></table><table class="vvp5-tbl"><caption>三、雙軌心法與視覺化記憶模型（合題）</caption><thead><tr><th>心法／模型</th><th>內容</th></tr></thead><tbody><tr><td>心法一·空作為動詞</td><td>空不是剝奪作用的黑洞，而是事物得以發生作用的絕對前提——空即因緣生（Śūnyatā＝Pratītyasamutpāda）</td></tr><tr><td>心法二·能所平權徹底性</td><td>斬斷我方實體對抗他方怪物之二元直覺——用以斬斷執著的劍與被斬的執著皆由同一因緣和合空性織物構成</td></tr><tr><td>模型I·解剖室</td><td>X光透視——將堅固的陳述拆解為肺部壓縮、氣流越過氣管、震動聲帶等一連串轉瞬即逝的氣動現象</td></tr><tr><td>模型II·虛擬實境</td><td>辯論非丟石頭，而是VR模擬——敵方執著是代碼（空），反擊邏輯亦是代碼（空），雙方皆是虛擬實體交鋒</td></tr><tr><td>模型III·拒絕擴音器</td><td>不接過論敵遞來「聲音物理性摧毀聲音」的擴音器，改以一盞輕柔的燈，照亮對方夢中的影子使其自然消散</td></tr></tbody></table><p class="vvp5-note">第五品是《迴諍論》全論最關鍵的轉折點之一：前二十偈的敵論詰難至此被逐一化解，龍樹以五步遞進——生理機制、概念地基、能所平權、邏輯閉環、喻例辨析——將「空語何以能遮」這道死角詰問徹底拆解。全品精神可濃縮為一句：<b>「我的語言正因為是空的，所以能發揮作用；正因為能發揮作用，所以證明它是空的」</b>。這既非文字遊戲，亦非邏輯詭辯，而是菩薩善巧方便（Upāya）的極致展現——不立勝因，不據實體，在無自體的徹見中，語言完成了它最後的任務：以完美的言說，指向絕對的寂靜。</p></div></div>
+<script id="wy-vvp5-js">(function(){
+var CH=document.querySelectorAll("section.chapter");
+var BTN=document.getElementById("vvp5Btn"),BOX=document.getElementById("vvp5Box"),MODAL=document.getElementById("vvp5Modal");
+if(!CH.length||!BTN||!BOX||!MODAL)return;
+var TARGET=4;
+function curIdx(){var lim=window.innerHeight*0.35,idx=-1;for(var i=0;i<CH.length;i++){if(CH[i].getBoundingClientRect().top<lim)idx=i;}return idx;}
+var FSEL="#floatYT,.float-yt,#vidFab,.vid-fab,#videoFab,#wyVideoBtn,#wyFab,#wy-fab,#vid-floating,#floatingYt,.video-fab,.wy-vbtn,.wy-video-fab,.floating-yt",_fab,_ft=false;
+function fab(){if(_fab&&_fab.isConnected)return _fab;if(_ft)return _fab;_ft=true;_fab=document.querySelector(FSEL);return _fab;}
+function place(){
+  var base=null,eb=document.querySelector(".wy-ebox");
+  if(eb){var r=eb.getBoundingClientRect();if(r.height>4)base=Math.round(window.innerHeight-r.top)+8;}
+  if(base===null){var fEl=fab();if(fEl){var fr=fEl.getBoundingClientRect(),st=getComputedStyle(fEl);if(fr.height>0&&st.display!=="none"&&st.visibility!=="hidden")base=Math.round(window.innerHeight-fr.top)+10;}}
+  if(base===null)base=78;
+  BOX.style.bottom=base+"px";
+}
+function upd(){place();BOX.classList.toggle("show",curIdx()===TARGET);}
+var tk=false;function onS(){if(!tk){tk=true;requestAnimationFrame(function(){tk=false;upd();});}}
+window.addEventListener("scroll",onS,{passive:true});window.addEventListener("resize",onS);
+BTN.addEventListener("click",function(){MODAL.classList.add("open");});
+MODAL.addEventListener("click",function(e){if(e.target===MODAL||e.target.id==="vvp5Close")MODAL.classList.remove("open");});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")MODAL.classList.remove("open");});
+upd();var c=0,iv=setInterval(function(){upd();if(++c>40)clearInterval(iv);},250);
+})();</script>
+<!--WY-VVP5:END-->
 </body>
 </html>
