@@ -980,5 +980,58 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape")MODAL.classL
 upd();var c=0,iv=setInterval(function(){upd();if(++c>40)clearInterval(iv);},250);
 })();</script>
 <!--WY-VVP1:END-->
+<!--WY-VVP2:BEGIN-->
+<style id="wy-vvp2-css">
+.vvp2-fabbox{position:fixed;right:22px;bottom:78px;z-index:121;display:none;}
+.vvp2-fabbox.show{display:block;}
+.vvp2-btn{display:inline-flex;align-items:center;gap:9px;font-family:"Noto Sans TC",sans-serif;letter-spacing:.5px;color:#f7ecd2;background:linear-gradient(135deg,#573f38,#2e2420);padding:8px 15px;border-radius:22px;border:1px solid rgba(184,134,11,.6);box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;opacity:.96;transition:opacity .3s,transform .2s,box-shadow .2s;}
+.vvp2-btn:hover{opacity:1;transform:translateY(-2px);box-shadow:0 6px 22px rgba(184,134,11,.5);}
+.vvp2-ic{font-size:15px;line-height:1;color:#ecc978;}
+.vvp2-ls{display:flex;flex-direction:column;align-items:flex-start;line-height:1.22;}
+.vvp2-l1{font-size:10.5px;font-weight:500;opacity:.82;white-space:nowrap;}
+.vvp2-l2{font-size:13px;font-weight:700;color:#faf1d8;white-space:nowrap;}
+.vvp2-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(28,20,12,.58);padding:16px;}
+.vvp2-modal.open{display:flex;}
+.vvp2-card{position:relative;background:#fbf7ee;max-width:900px;width:100%;max-height:88vh;overflow:auto;border:1px solid #d8c8ac;border-radius:14px;padding:30px 24px 22px;box-shadow:0 18px 50px rgba(0,0,0,.4);}
+.vvp2-card h3{margin:0 0 2px;font-family:"Noto Serif TC",serif;font-size:20px;color:#8b5e3c;}
+.vvp2-card .sub{margin:0 0 14px;font-family:"Noto Sans TC",sans-serif;font-size:13px;color:#6b5b4b;}
+.vvp2-close{position:absolute;top:12px;right:16px;width:34px;height:34px;border:none;border-radius:50%;background:#efe6d4;color:#8b5e3c;font-size:22px;line-height:1;cursor:pointer;z-index:2;}
+.vvp2-close:hover{background:#e3d5b8;}
+.vvp2-tbl{width:100%;border-collapse:collapse;font-family:"Noto Sans TC",sans-serif;font-size:13px;margin:.3em 0 1.2em;}
+.vvp2-tbl caption{font-family:"Noto Serif TC",serif;font-weight:700;color:#8b5e3c;font-size:14.5px;text-align:left;margin:.6em 0 .35em;line-height:1.5;}
+.vvp2-tbl th,.vvp2-tbl td{border:1px solid #d8c8ac;padding:.45em .6em;text-align:left;vertical-align:top;line-height:1.6;}
+.vvp2-tbl thead th{background:#8b5e3c;color:#f7ecd2;font-weight:700;}
+.vvp2-tbl td:first-child{white-space:nowrap;color:#8b5e3c;font-weight:700;background:#f0e8d8;}
+.vvp2-tbl tbody tr:nth-child(even) td{background:#f6efe0;}
+.vvp2-tbl b{color:#8b2500;}
+.vvp2-note{font-size:12px;color:#5a4e3a;line-height:1.9;background:#f6efe0;border-left:3px solid #c4956a;border-radius:0 6px 6px 0;padding:10px 13px;margin:4px 0 0;}
+.vvp2-note b{color:#8b2500;}
+@media(max-width:900px){.vvp2-fabbox{right:14px;}.vvp2-tbl{font-size:11.5px;}.vvp2-card{padding:26px 14px 16px;}}
+</style>
+<div class="vvp2-fabbox" id="vvp2Box"><button class="vvp2-btn" id="vvp2Btn" type="button" aria-label="開啟全景總表"><span class="vvp2-ic">▦</span><span class="vvp2-ls"><span class="vvp2-l1">本品 · 龍樹五十一偈答辯</span><span class="vvp2-l2">四大反擊路徑 · 以幻破幻信空信一切</span></span></button></div><div class="vvp2-modal" id="vvp2Modal" role="dialog" aria-modal="true" aria-label="全景總表"><div class="vvp2-card"><button class="vvp2-close" id="vvp2Close" type="button" aria-label="關閉">×</button><h3>迴諍論·第二品(上分第二) · 全景總表</h3><p class="sub">迴諍論·第二品｜以幻破幻・破除四量・無宗無物・信空信一切・二諦圓融歸命偈</p><table class="vvp2-tbl"><caption>一、四大邏輯反擊路徑與五概念座標（本品主骨架）</caption><thead><tr><th>環節</th><th>內容</th></tr></thead><tbody><tr><td>論敵三段論</td><td>萬法皆空→你的言語亦萬法之一→言語亦空→空語無力反駁萬法實有；謬誤核心在將「有效性」等同「實有性」</td></tr><tr><td>一·語義解構</td><td>以幻破幻——「化人於化人，幻人於幻人，如是遮所遮」，語言工具性而非實體性，無自體之語方能破無自體之執</td></tr><tr><td>二·認識雙盲</td><td>破除四量——「若量能成法，彼復有量成」，量與所量互相依賴，皆無獨立自體，火能自照喻遭三重論證拆解</td></tr><tr><td>三·宗派懸置</td><td>無宗無物——「我宗無物故，如是不得過」，超越二元對立，不立實體性宗派，論敵針對「實體」之攻擊無處著力</td></tr><tr><td>四·本體實踐統一</td><td>信空信一切——「若人信於空，彼人信一切」，空性非障礙，反為一切修行因果道德之本體基礎</td></tr><tr><td>五概念座標</td><td>自體（本體論）、量（認識工具）、所量（認識對象）、世諦（世俗認知）、真諦（勝義真理）反覆出入，構成全部論辯座標軸</td></tr></tbody></table><table class="vvp2-tbl"><caption>二、原典五節五十一偈結構與核心偈頌（依四路徑分列）</caption><thead><tr><th>偈次</th><th>內容</th></tr></thead><tbody><tr><td>偈一·二</td><td>「我語言若離，因緣和合法，是則空義成」——語言若離因緣和合更無別法，故無自體，空義得成</td></tr><tr><td>偈三·四</td><td>「化人於化人，幻人於幻人，如是遮所遮」——能遮化人是空，所遮化人亦空，能所平權，空語能遮一切諸法自體</td></tr><tr><td>偈七·八</td><td>「若不依世諦，不得證真諦，若不證真諦，不得涅槃證」——世諦是渡向真諦不可或缺之筏，非可廢棄之物</td></tr><tr><td>偈九·十</td><td>「我宗無物故，如是不得過」——龍樹不立實體性宗派，故論敵「自相矛盾」之指控找不到攻擊對象</td></tr><tr><td>偈二十八·二十九</td><td>「為是父生子？為是子生父？」父子相生之悖論——沒有任何一方擁有先於對方存在的絕對實體，相待即是空</td></tr><tr><td>偈五十</td><td>「若人信於空，彼人信一切；若人不信空，彼不信一切」——空性是一切修行因果道德價值得以建立的本體基礎</td></tr></tbody></table><table class="vvp2-tbl"><caption>三、二諦圓融與中觀美學（合題·全論地位）</caption><thead><tr><th>環節</th><th>內容</th></tr></thead><tbody><tr><td>相待即空</td><td>量與所量、父與子、語言與概念——只要能找出對方的依賴條件，即證實其無自體；揭示相待，即證明空性</td></tr><tr><td>禮敬歸命偈</td><td>「空自體因緣，三一中道說，我歸命禮彼，無上大智慧！」——空、自體、因緣三者一體，是名「三一中道」</td></tr><tr><td>與中論呼應</td><td>火喻、父子相生、相待性皆與《中論·觀燃可燃品》《觀因果品》互為印證，是《中論》辯證學的一次密集應用</td></tr><tr><td>修行意涵</td><td>以「信空信一切」收結，奠定大乘空宗將般若空慧與菩薩萬行融為一體之根本立場——空非斷見，空為大悲行之地基</td></tr><tr><td>全論地位</td><td>第一品二十偈為敵論立難，第二品五十一偈為龍樹答辯，本品是《迴諍論》全部辯證之高峰——破語言、破認識、破宗、立空義</td></tr></tbody></table><p class="vvp2-note">第二品是《迴諍論》上分辯證的最高峰：龍樹以無自體之語言破除執著於語言實有之論敵，以相待性破絕對性，以空性立一切修行。全品四條反擊路徑——語義解構、認識雙盲、宗派懸置、本體實踐統一——並非各自孤立，而是層層遞進的同一把鑰匙：<b>唯有承認相待，方能證得空性；唯有證得空性，方能安立一切因果與價值</b>。末偈禮敬般若無上大智慧，將整套邏輯辯證收束為對智慧本身的信仰實踐，亦為下分之論釋鋪墊。</p></div></div>
+<script id="wy-vvp2-js">(function(){
+var CH=document.querySelectorAll("section.chapter");
+var BTN=document.getElementById("vvp2Btn"),BOX=document.getElementById("vvp2Box"),MODAL=document.getElementById("vvp2Modal");
+if(!CH.length||!BTN||!BOX||!MODAL)return;
+var TARGET=1;
+function curIdx(){var lim=window.innerHeight*0.35,idx=-1;for(var i=0;i<CH.length;i++){if(CH[i].getBoundingClientRect().top<lim)idx=i;}return idx;}
+var FSEL="#floatYT,.float-yt,#vidFab,.vid-fab,#videoFab,#wyVideoBtn,#wyFab,#wy-fab,#vid-floating,#floatingYt,.video-fab,.wy-vbtn,.wy-video-fab,.floating-yt",_fab,_ft=false;
+function fab(){if(_fab&&_fab.isConnected)return _fab;if(_ft)return _fab;_ft=true;_fab=document.querySelector(FSEL);return _fab;}
+function place(){
+  var base=null,eb=document.querySelector(".wy-ebox");
+  if(eb){var r=eb.getBoundingClientRect();if(r.height>4)base=Math.round(window.innerHeight-r.top)+8;}
+  if(base===null){var fEl=fab();if(fEl){var fr=fEl.getBoundingClientRect(),st=getComputedStyle(fEl);if(fr.height>0&&st.display!=="none"&&st.visibility!=="hidden")base=Math.round(window.innerHeight-fr.top)+10;}}
+  if(base===null)base=78;
+  BOX.style.bottom=base+"px";
+}
+function upd(){place();BOX.classList.toggle("show",curIdx()===TARGET);}
+var tk=false;function onS(){if(!tk){tk=true;requestAnimationFrame(function(){tk=false;upd();});}}
+window.addEventListener("scroll",onS,{passive:true});window.addEventListener("resize",onS);
+BTN.addEventListener("click",function(){MODAL.classList.add("open");});
+MODAL.addEventListener("click",function(e){if(e.target===MODAL||e.target.id==="vvp2Close")MODAL.classList.remove("open");});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")MODAL.classList.remove("open");});
+upd();var c=0,iv=setInterval(function(){upd();if(++c>40)clearInterval(iv);},250);
+})();</script>
+<!--WY-VVP2:END-->
 </body>
 </html>
