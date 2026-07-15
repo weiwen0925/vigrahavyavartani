@@ -1547,15 +1547,46 @@ function snippet(txt,ts){
 }
 function loadIdx(){
   if(IDX||LOADING)return;LOADING=true;
-  fetch('https://weiwen0925.github.io/dazhidulun-0/search-index.json')
+  fetch('https://weiwen0925.github.io/dazhidulun-0/search-core.json')
     .then(function(r){if(!r.ok)throw 0;return r.json();})
-    .then(function(j){IDX=j||{};})
-    .catch(function(){IDX={};})
-    .then(function(){LOADING=false;render();});
+    .then(function(j){
+      IDX=j||{};IDX.bhv=IDX.bhv||[];
+      LOADING=false;render();
+      var bi=1;
+      (function nextB(){
+        fetch('https://weiwen0925.github.io/dazhidulun-0/search-bh-'+bi+'.json').then(function(r){if(!r.ok)throw 0;return r.json();})
+        .then(function(a){IDX.bhv=IDX.bhv.concat(a||[]);render();bi++;nextB();})
+        .catch(function(){});
+      })();
+    })
+    .catch(function(){  /* 後備：舊單檔索引 */
+      fetch('https://weiwen0925.github.io/dazhidulun-0/search-index.json')
+        .then(function(r){if(!r.ok)throw 0;return r.json();})
+        .then(function(j){IDX=j||{};})
+        .catch(function(){IDX={};})
+        .then(function(){LOADING=false;render();});
+    });
 }
 function loadZb(){
-  if(ZI||ZLOAD||!IDX||!IDX.zbv||!IDX.zbv.length){if(!ZI&&IDX&&(!IDX.zbv||!IDX.zbv.length))ZI=[];return;}
+  if(ZI||ZLOAD)return;
   ZLOAD=true;
+  var zgot=false,zi=1;
+  (function nextZ(){
+    fetch('https://weiwen0925.github.io/dazhidulun-0/search-zb-'+zi+'.json').then(function(r){if(!r.ok)throw 0;return r.json();})
+    .then(function(a){
+      if(!zgot){zgot=true;ZI=[];}
+      for(var q2=0;q2<(a||[]).length;q2++){var it=a[q2];ZI.push({k:String(it.k),p:it.p,title:it.t||'',txt:it.x||''});}
+      ZLOAD=false;render();
+      zi++;nextZ();
+    })
+    .catch(function(){
+      if(zgot){ZLOAD=false;render();return;}
+      legacyZb();  /* 分片不存在 → 舊制逐卷抓取 */
+    });
+  })();
+}
+function legacyZb(){
+  if(!IDX||!IDX.zbv||!IDX.zbv.length){ZI=[];ZLOAD=false;render();return;}
   var items=[],left=IDX.zbv.length;
   IDX.zbv.forEach(function(k){
     fetch(baseOf(k)+'zongbiao.json').then(function(r){if(!r.ok)throw 0;return r.json();})
