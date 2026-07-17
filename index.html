@@ -1852,5 +1852,142 @@ else window.addEventListener('load',function(){setTimeout(bhGo,200);});
 })();
 </script>
 <!--WY-GOTO:END-->
+<!--WY-FABDOCK:BEGIN-->
+<style id="wy-fabdock-css">/* fabdock-v6 */
+#wyDock{position:fixed;right:18px;bottom:18px;z-index:8985;display:flex;flex-direction:column;align-items:flex-end;gap:10px;font-family:"Noto Sans TC",sans-serif;}
+#wyDockTray{display:flex;flex-direction:column;align-items:flex-end;gap:10px;max-height:min(68vh,620px);max-width:min(86vw,660px);overflow-y:auto;overflow-x:visible;padding:4px 2px;scrollbar-width:thin;}
+#wyDock.wy-closed #wyDockTray{display:none;}
+#wyDockBtn{width:48px;height:48px;border-radius:50%;cursor:pointer;border:1px solid rgba(217,184,124,.65);background:radial-gradient(circle at 32% 28%,#4a3c2c,#2a2118 72%);color:#e8c886;font-size:19px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.28);transition:transform .18s;user-select:none;}
+#wyDockBtn:hover{transform:scale(1.07);}
+#wyDock:not(.wy-closed) #wyDockBtn{background:#8b5e3c;color:#fff8e6;}
+@keyframes wyPulse{0%{box-shadow:0 0 0 0 rgba(212,168,75,.7),0 6px 20px rgba(0,0,0,.28);}70%{box-shadow:0 0 0 16px rgba(212,168,75,0),0 6px 20px rgba(0,0,0,.28);}100%{box-shadow:0 0 0 0 rgba(212,168,75,0),0 6px 20px rgba(0,0,0,.28);}}
+#wyDockBtn.wy-pulse{animation:wyPulse 2.2s ease-out 4;}
+#wyDockHint,#wySrchHint{max-width:232px;background:rgba(30,24,16,.96);color:#e8c886;border:1px solid rgba(217,184,124,.55);border-radius:12px;padding:10px 13px;font-size:13px;line-height:1.7;letter-spacing:.5px;box-shadow:0 8px 24px rgba(0,0,0,.35);position:relative;cursor:pointer;user-select:none;}
+#wyDockHint:after,#wySrchHint:after{content:"";position:absolute;right:17px;bottom:-7px;width:12px;height:12px;background:rgba(30,24,16,.96);border-right:1px solid rgba(217,184,124,.55);border-bottom:1px solid rgba(217,184,124,.55);transform:rotate(45deg);}
+#wyDockHint b,#wySrchHint b{color:#ffd98a;font-weight:700;}
+#wySrchHint{position:fixed;left:20px;bottom:92px;z-index:8991;}
+#wySrchHint:after{right:auto;left:20px;}
+#wysFab.wy-pulse{animation:wyPulse 2.2s ease-out 4;}
+#wyDockTray>*{position:static!important;right:auto!important;bottom:auto!important;left:auto!important;top:auto!important;margin:0!important;max-width:100%!important;}
+@media (max-width:760px){#wyDock{right:12px;bottom:12px;}#wyDockBtn{width:44px;height:44px;font-size:17px;}}
+</style>
+<script id="wy-fabdock-js">(function(){
+if(window.__wyFabDock)return;window.__wyFabDock=1;
+var K="wyDockOpen";
+function g(){try{return localStorage.getItem(K)||"0";}catch(e){return "0";}}
+function st(v){try{localStorage.setItem(K,v);}catch(e){}}
+var SEL='[class*="-fabbox"],.bha-fab,.float-yt,.yt-float,.yt-floater,.floating-yt,.float-video,.video-float,.vid-float,.video-fab,.vid-fab,.wy-video-fab,.wy-vid-fab,.wy-vfab,.wy-video-btn,.pin-video,.wy-fab-wrap,.wy-fab-stack,.wy-float-wrap,.wy-egbox,.wy-vbtn,#ytFloat,#floatingYt,#vid-floating,#wyFab,#wy-fab,#zlVfab,#floatVideo,#backTop';
+function isFixed(el){var cs;try{cs=getComputedStyle(el);}catch(e){return false;}return cs.position==="fixed";}
+function ensure(){
+  var d=document.getElementById("wyDock");
+  if(!d){
+    d=document.createElement("div");d.id="wyDock";
+    d.innerHTML='<div id="wyDockTray"></div><div id="wyDockBtn" title="本品工具＋回頂：點開陳列，再點收納">☰</div>';
+    document.body.appendChild(d);
+    var btn=d.querySelector("#wyDockBtn");
+    btn.addEventListener("click",function(){
+      var closed=d.classList.toggle("wy-closed");
+      btn.textContent=closed?"☰":"✕";
+      st(closed?"0":"1");
+    });
+    if(g()==="1"){d.classList.remove("wy-closed");btn.textContent="✕";}
+    else{d.classList.add("wy-closed");btn.textContent="☰";}
+    try{ /* v4/v6 首訪兩段式導覽：①☰ 工具櫃 → ②左下「尋」；點擊即永久記住；未互動各最多 3 頁次 */
+      var srch=function(){
+        try{
+          var sf=document.getElementById("wysFab");
+          if(!sf)return;
+          if(document.getElementById("wySrchHint"))return; /* 防重入 */
+          if("1"===localStorage.getItem("wySrchHint"))return;
+          var sn=parseInt(localStorage.getItem("wySrchHintN")||"0",10)||0;
+          if(sn>=3)return;
+          var sh=document.createElement("div");sh.id="wySrchHint";
+          sh.innerHTML="全文搜尋在這裡<br><b>尋</b> 點開：直搜經文與白話";
+          document.body.appendChild(sh);
+          sf.classList.add("wy-pulse");
+          var sfin=function(mark){
+            try{if(mark)localStorage.setItem("wySrchHint","1");
+                else localStorage.setItem("wySrchHintN",String(sn+1));}catch(e){}
+            if(sh.parentNode)sh.parentNode.removeChild(sh);
+            sf.classList.remove("wy-pulse");
+          };
+          sh.addEventListener("click",function(){sfin(true);});
+          sf.addEventListener("click",function(){sfin(true);},{once:true});
+          setTimeout(function(){if(sh.parentNode)sfin(false);},10000);
+        }catch(e){}
+      };
+      var seen="1"===localStorage.getItem("wyDockHint");
+      var hn=parseInt(localStorage.getItem("wyDockHintN")||"0",10)||0;
+      if(!seen&&hn<3){
+        var hint=document.createElement("div");hint.id="wyDockHint";
+        hint.innerHTML="本卷各品工具收納於此<br><b>☰</b> 點開：白話・總表・影音・回頂";
+        d.insertBefore(hint,d.firstChild);
+        btn.classList.add("wy-pulse");
+        var fin=function(mark){
+          try{if(mark)localStorage.setItem("wyDockHint","1");
+              else localStorage.setItem("wyDockHintN",String(hn+1));}catch(e){}
+          if(hint.parentNode)hint.parentNode.removeChild(hint);
+          btn.classList.remove("wy-pulse");
+          setTimeout(srch,800); /* ②接棒：尋 提示 */
+        };
+        hint.addEventListener("click",function(){fin(true);});
+        btn.addEventListener("click",function(){fin(true);},{once:true});
+        setTimeout(function(){if(hint.parentNode)fin(false);},10000);
+      }else{
+        setTimeout(srch,1200); /* ☰ 已看過：直接提示 尋 */
+      }
+    }catch(e){}
+  }
+  return d;
+}
+function order(tray){var bt=tray.querySelector("#backTop");if(bt&&bt!==tray.lastElementChild)tray.appendChild(bt);}
+function adopt(){
+  var d=ensure(),tray=d.querySelector("#wyDockTray"),n=0;
+  var els=document.querySelectorAll(SEL);
+  for(var i=0;i<els.length;i++){
+    var el=els[i];
+    if(el.closest("#wyDock"))continue;
+    if(!isFixed(el))continue; /* 撞名免疫：只收 fixed 浮動件 */
+    var par=el.parentElement;
+    if(par&&par!==document.body&&par.closest&&par.closest(SEL))continue; /* 巢狀只收外層 */
+    if(!el.closest("body"))continue;
+    if(el.closest('[id$="Modal"]')||el.closest('[class*="modal"]'))continue;
+    tray.appendChild(el);n++;
+  }
+  if(n)order(tray);
+  var has=tray.children.length>0;
+  d.style.display=has?"flex":"none";
+  return n;
+}
+function sweep(){ /* 通用補網：可見的右下 fixed 元素（命名漂移救援；含寬版影音膠囊） */
+  var d=document.getElementById("wyDock"),tray=d&&d.querySelector("#wyDockTray");
+  if(!tray)return;
+  var iw=window.innerWidth,ih=window.innerHeight,els=document.body.children,extra=[];
+  function scan(list,depth){
+    for(var i=0;i<list.length;i++){var el=list[i];
+      if(el.id==="wyDock"||el.id==="wysFab")continue;
+      if(/Modal$/.test(el.id||"")||/modal/.test(el.className||""))continue;
+      if(/toast|progress|tooltip/i.test(el.className||"")||el.getAttribute("role")==="status"||el.hasAttribute("aria-live"))continue;
+      var cs;try{cs=getComputedStyle(el);}catch(e){continue;}
+      if(cs.position==="fixed"&&cs.display!=="none"){
+        var r=el.getBoundingClientRect();
+        if(r.width>0&&r.width<=680&&r.height<=200&&r.right>=iw-160&&r.bottom<=ih-8&&r.bottom>=ih-620){extra.push(el);continue;}
+      }
+      if(depth<1&&el.children&&el.children.length&&el.children.length<40)scan(el.children,depth+1);
+    }
+  }
+  scan(els,0);
+  var m=0;
+  for(var j=0;j<extra.length;j++){if(!extra[j].closest("#wyDock")){tray.appendChild(extra[j]);m++;}}
+  if(m)order(tray);
+}
+var _sw=0;
+function tick(){adopt();sweep();if(++_sw<24)setTimeout(tick,900);}
+function boot(){adopt();setTimeout(tick,700);
+  var tm;window.addEventListener("scroll",function(){clearTimeout(tm);tm=setTimeout(function(){adopt();sweep();},500);},{passive:true});}
+if(document.readyState!=="loading")setTimeout(boot,300);
+else document.addEventListener("DOMContentLoaded",function(){setTimeout(boot,300);});
+})();</script>
+<!--WY-FABDOCK:END-->
 </body>
 </html>
