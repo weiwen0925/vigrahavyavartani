@@ -1504,11 +1504,11 @@ a.wys-row:hover{background:rgba(217,184,124,.1);}
 .wys-chip:hover{color:#ffd98a;border-color:rgba(255,217,138,.6);}
 @media (max-width:700px){#wysFab{left:14px;bottom:18px;width:46px;height:46px;}.wysf-ic{font-size:16px;}.wysm-card{padding:20px 14px 14px;}}
 </style>
-<script id="wy-search-js">/* wysearch-v2 */
+<script id="wy-search-js">/* wysearch-v3 */
 (function(){
 if(document.getElementById('wysFab'))return;
 
-/* wysearch-v2 智慧層：異體字變體＋相關詞＋主題直達（全客戶端、零請求） */
+/* wysearch-v3 智慧層：異體字變體＋相關詞＋主題直達＋外部詞庫（客戶端） */
 var WYVAR={'恒':'恆','恆':'恒','閑':'閒','閒':'閑','燃':'然','然':'燃','懃':'勤','勤':'懃','迹':'跡','跡':'迹','政':'正'};
 var _vexC={};
 function vex(t){if(_vexC[t])return _vexC[t];var res=[t];
@@ -1541,7 +1541,17 @@ var WYSYN=[
 ['法執','取相','著相','增益見'],
 ['正憶念','不可得','無所得'],
 ['迴向','隨喜','福德'],
-['魔事','魔不能壞','留惑潤生']];
+['魔事','魔不能壞','留惑潤生'],
+['四悉檀','世界悉檀','各各為人悉檀','對治悉檀','第一義悉檀'],
+['八不中道','不生不滅','不常不斷','不一不異','不來不出','緣起性空'],
+['四句','離四句','自生','他生','共生','無因生'],
+['空假中','即空即假','假名','中道義'],
+['五門禪','五停心觀','數息觀','不淨觀','慈心觀','因緣觀','念佛觀'],
+['般舟三昧','佛立三昧','常行三昧','十方諸佛悉在前立','見佛'],
+['量','現量','比量','四量','正理'],
+['破神','神我','我執','捨罪福'],
+['唯破不立','歸謬','應成'],
+['緣起性空','無自性','性空唯名']];
 function synOf(ts){var out=[],ql=ts.join(' ').toLowerCase();
   for(var g=0;g<WYSYN.length;g++){var grp=WYSYN[g],hit=false;
     for(var i=0;i<grp.length;i++){var w=grp[i].toLowerCase();
@@ -1584,12 +1594,13 @@ var WYTOPIC=[
 {w:['薩陀波崙','曇無竭'],t:'薩陀波崙求般若',k:'96',v:'卷 96–98'},
 {w:['囑累','付囑'],t:'囑累品（全論結語）',k:'100',v:'卷 100'},
 {w:['緣起義','因緣總綱'],t:'緣起義（總綱）',k:'1',v:'卷 1'},
-{w:['八不','中論','觀因緣'],t:'《中論》八不中道',k:'zl',v:'中論'},
-{w:['十二門'],t:'《十二門論》',k:'tg',v:'十二門論'},
-{w:['百論'],t:'《百論》',k:'bl',v:'百論'},
-{w:['迴諍'],t:'《迴諍論》',k:'vv',v:'迴諍論'},
-{w:['般舟','念佛三昧'],t:'《般舟三昧經》',k:'bz',v:'般舟'},
-{w:['坐禪','禪法要'],t:'《坐禪三昧經》',k:'zc',v:'坐禪'}];
+{w:['四悉檀','悉檀'],t:'四悉檀（判教總綱）',k:'1',v:'卷 1'},
+{w:['八不','中論','觀因緣','緣起性空','四句'],t:'《中論》八不中道',k:'zl',v:'中論'},
+{w:['十二門','觀因緣門','觀三時'],t:'《十二門論》十二門入空',k:'tg',v:'十二門論'},
+{w:['百論','提婆','破神','捨罪福'],t:'《百論》破神・捨罪福',k:'bl',v:'百論'},
+{w:['迴諍','四量','現量','比量'],t:'《迴諍論》量之批判',k:'vv',v:'迴諍論'},
+{w:['般舟','佛立三昧','常行三昧','阿彌陀'],t:'《般舟三昧經》念佛三昧',k:'bz',v:'般舟'},
+{w:['坐禪','五門禪','五停心','數息','不淨觀'],t:'《坐禪三昧經》五門禪',k:'zc',v:'坐禪'}];
 function topicOf(ts){var out=[];
   for(var i=0;i<WYTOPIC.length;i++){var tp=WYTOPIC[i],hit=false;
     for(var j=0;j<tp.w.length&&!hit;j++){var w=tp.w[j].toLowerCase();
@@ -1613,6 +1624,13 @@ function wysSmart(q,ts){
     for(var j2=0;j2<syn.length;j2++){h+='<button type="button" class="wys-chip" data-w="'+esc(syn[j2])+'">'+esc(syn[j2])+'</button>';}
     h+='</div>';}
   return h;}
+/* 外部詞庫覆蓋：月更 search-smart.json 即全站生效；失敗靜默走內嵌後備 */
+(function(){try{
+fetch('https://weiwen0925.github.io/dazhidulun-0/search-smart.json').then(function(r){return r.json();}).then(function(j){
+  if(j&&j.syn&&j.syn.length>=20){WYSYN.length=0;for(var i=0;i<j.syn.length;i++)WYSYN.push(j.syn[i]);_vexC={};}
+  if(j&&j.topic&&j.topic.length>=30){WYTOPIC.length=0;for(var k2=0;k2<j.topic.length;k2++)WYTOPIC.push(j.topic[k2]);}
+}).catch(function(){});
+}catch(e){}})();
 
 var IDX=null,LOADING=false,ZI=null,ZLOAD=false;
 var fab=document.createElement('button');fab.id='wysFab';fab.type='button';fab.setAttribute('aria-label','尋 · 全站搜尋');fab.title='尋 · 全站搜尋';
