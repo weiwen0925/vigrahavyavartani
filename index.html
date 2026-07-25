@@ -1504,7 +1504,7 @@ a.wys-row:hover{background:rgba(217,184,124,.1);}
 .wys-chip:hover{color:#ffd98a;border-color:rgba(255,217,138,.6);}
 @media (max-width:700px){#wysFab{left:14px;bottom:18px;width:46px;height:46px;}.wysf-ic{font-size:16px;}.wysm-card{padding:20px 14px 14px;}}
 </style>
-<script id="wy-search-js">/* wysearch-v3 */
+<script id="wy-search-js">/* wysearch-v4 */
 (function(){
 if(document.getElementById('wysFab'))return;
 
@@ -1653,12 +1653,12 @@ idoc.close();
 var sin=idoc.getElementById('q');
 
 function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
-var WREPO={zl:'nagarjuna-mulamadhyamakakarika',tg:'twelve-gates',bl:'bailun',vv:'vigrahavyavartani',bz:'pratyutpanna-samadhi-sutra',zc:'zuochan-sanmei-jing'}; /* ★新論擴充點★ 新論 base 在此補 */
+var WREPO={zl:'nagarjuna-mulamadhyamakakarika',tg:'twelve-gates',bl:'bailun',vv:'vigrahavyavartani',bz:'pratyutpanna-samadhi-sutra',zc:'zuochan-sanmei-jing',sl:'surangama-samadhi-sutra'}; /* ★新論擴充點★ 新論 base 在此補 */
 function baseOf(k){
   if(WREPO[k])return 'https://weiwen0925.github.io/'+WREPO[k]+'/';
   return 'https://weiwen0925.github.io/dazhidulun-'+k+'/';
 }
-var WLNAME={zl:'中論',tg:'十二門論',bl:'百論',vv:'迴諍論',bz:'般舟三昧經',zc:'坐禪三昧經'}; /* ★新論擴充點★ 新論顯示名在此補 */
+var WLNAME={zl:'中論',tg:'十二門論',bl:'百論',vv:'迴諍論',bz:'般舟三昧經',zc:'坐禪三昧經',sl:'首楞嚴三昧經'}; /* ★新論擴充點★ 新論顯示名在此補 */
 function label(k){return WLNAME[k]||('卷 '+k);}
 function terms(q){return q.split(/[\s,，、・]+/).filter(function(x){return x.length>=1;}).slice(0,5);}
 function matchAll(txt,ts){var lo=txt.toLowerCase();
