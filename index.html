@@ -1776,7 +1776,7 @@ function renderStarter(){/*起手式：新手範本＋熱點＋本機最近查�
   for(var k=0;k<r.length;k++){var w=esc(r[k]).replace(/"/g,'&quot;');
   h+='<button type="button" class="wys-chip" data-wq="'+w+'">'+w+'</button>';}h+='</div>';}}catch(x){}
   try{
-  if(MNEWS.length){
+  h+='<div class="wys-head">中觀論藏 <span class="wys-hint">一以貫之 · 點珠開品目</span></div>'+HUBJS;if(MNEWS.length){
     h+='<div class="wys-head">最新動態 <span class="wys-hint">導讀 · 注腳 · 公告</span></div>';
     for(var e1=0;e1<Math.min(MNEWS.length,6);e1++){var it=MNEWS[e1];
       var tc=it.ty==='注腳'?' wys-tag6':(it.ty==='導讀'?' wys-tag4':'');
@@ -1790,7 +1790,7 @@ function renderStarter(){/*起手式：新手範本＋熱點＋本機最近查�
   h+='<a class="wys-row" target="_blank" rel="noopener" href="https://weiwen0925.github.io/essay-'+it2.n+'.html">'
    +'<span class="wys-tag wys-tag4">第 '+it2.n+' 篇</span><span class="wys-t">'+esc(it2.t.slice(0,42))+'</span></a>';}}}
   }catch(x2){}
-  h+='<div class="wys-head">中觀論藏 <span class="wys-hint">一以貫之 · 點珠開品目</span></div>'+HUBJS;
+  
   sres.innerHTML=h;
 }
 function render(){
