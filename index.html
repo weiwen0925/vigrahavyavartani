@@ -1793,11 +1793,20 @@ function renderStarter(){/*起手式：新手範本＋熱點＋本機最近查�
   
   sres.innerHTML=h;
 }
+/*wy-yk-layer*/var YKX=null;try{fetch('https://weiwen0925.github.io/dazhidulun-0/search-yk.json').then(function(r){return r.ok?r.json():[];}).then(function(j){YKX=ixmap(j)||[];}).catch(function(){});}catch(e){}
+function ykLayer(q,ts){if(!YKX||!YKX.length)return "";var out=[];
+for(var i=0;i<YKX.length&&out.length<6;i++){var it=YKX[i];var tx=it.x||"";
+if(!matchAll(tx,ts))continue;var p=tx.indexOf("｜");
+var tt=p>0?tx.slice(0,p):tx,dd=p>0?tx.slice(p+1):"";
+out.push('<a class="wys-row" target="_blank" rel="noopener" href="https://weiwen0925.github.io/dazhidulun-0/yuku.html'+it.u+'">'
++'<span class="wys-tag wys-tag6">譬喻</span><span class="wys-t">'+esc(tt)+' － '+esc(dd.slice(0,34))+'</span></a>');}
+if(!out.length)return "";
+return '<div class="wys-head">譬喻藏 <span class="wys-hint">613 喻 · 點卡直達</span></div>'+out.join("");}
 function render(){
   var q=(sin.value||'').trim();
   if(!q){renderStarter();return;}
   if(EXP.q!==q){EXP.q=q;EXP.p=0;EXP.n=0;EXP.e=0;EXP.z=0;EXP.b=0;EXP.f=0;}
-  var ts=terms(q),h='';h+=wysSmart(q,ts);
+  var ts=terms(q),h='';h+=wysSmart(q,ts);h+=ykLayer(q,ts);
   var pure=/^[\d\s]+$/.test(q);
   if(!IDX){sres.innerHTML='<div class="wys-head">索引載入中…</div>';loadIdx();return;}
   var vols=IDX.vols||{};
