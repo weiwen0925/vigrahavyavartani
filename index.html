@@ -1778,7 +1778,7 @@ function renderStarter(){/*起手式：新手範本＋熱點＋本機最近查�
   try{
   if(MNEWS.length){
     h+='<div class="wys-head">最新動態 <span class="wys-hint">導讀 · 注腳 · 公告</span></div>';
-    for(var e1=0;e1<Math.min(MNEWS.length,4);e1++){var it=MNEWS[e1];
+    for(var e1=0;e1<Math.min(MNEWS.length,6);e1++){var it=MNEWS[e1];
       var tc=it.ty==='注腳'?' wys-tag6':(it.ty==='導讀'?' wys-tag4':'');
       var nb=e1===0?'<span class="wys-newb">新</span>':'';
       h+='<a class="wys-row" target="_blank" rel="noopener" href="'+it.u+'">'+nb
