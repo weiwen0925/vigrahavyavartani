@@ -1781,8 +1781,7 @@ function renderStarter(){/*起手式：新手範本＋熱點＋本機最近查�
     for(var e1=0;e1<Math.min(MNEWS.length,6);e1++){var it=MNEWS[e1];
       var tc=it.ty==='注腳'?' wys-tag6':(it.ty==='導讀'?' wys-tag4':'');
       var nb=e1===0?'<span class="wys-newb">新</span>':'';
-      h+='<a class="wys-row" target="_blank" rel="noopener" href="'+it.u+'">'+nb
-       +'<span class="wys-tag'+tc+'">'+esc(it.ty)+'</span><span class="wys-t">'+esc(it.t.slice(0,44))+'</span></a>';}
+      h+=(it.u?('<a class="wys-row" target="_blank" rel="noopener" href="'+it.u+'">'):'<div class="wys-row" style="cursor:default">')+nb+'<span class="wys-tag'+tc+'">'+esc(it.ty)+'</span><span class="wys-t">'+esc(it.t.slice(0,44))+'</span>'+(it.u?'</a>':'</div>');/*WY-SFIX2*/}
   }else{var ES=(IDX&&IDX.essays)||[];
   if(ES.length){var es=ES.slice().sort(function(a,b){return b.n-a.n;}).slice(0,3);
   h+='<div class="wys-head">最新上線 <span class="wys-hint">導讀近三篇</span></div>';
