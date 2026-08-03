@@ -1853,7 +1853,7 @@ function render(){
       var M4=EXP.e?XCAP:8,S4=Math.min(eh.length,M4);
       h+='<div class="wys-head">系列導讀 · '+eh.length+' 篇 <span class="wys-hint">開啟文章</span></div>';
       for(var r4=0;r4<S4;r4++){var it4=eh[r4];
-        h+=row('wys-tag4','導讀 '+it4.n,'https://weiwen0925.github.io/medium-import-'+it4.n+'.html',
+        h+=row('wys-tag4','導讀 '+it4.n,'https://weiwen0925.github.io/essay-'+it4.n+'.html',
           '<span class="wys-tt">'+esc(it4.t.slice(0,30))+'</span><br>'+hlAll(snippet(it4.x,ts),ts));}
       h+=EXP.e?xnote(eh.length,S4):xmore('e',eh.length,S4);
     }
