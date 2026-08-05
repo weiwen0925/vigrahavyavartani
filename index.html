@@ -2213,5 +2213,75 @@ if(document.readyState!=="loading")setTimeout(boot,300);
 else document.addEventListener("DOMContentLoaded",function(){setTimeout(boot,300);});
 })();</script>
 <!--WY-FABDOCK:END-->
-</body>
+<!--WY-BSEEN--><style id="wy-bseen-css">
+.sb-item.seen .sb-circle{border:1.5px solid #e8c76a;background:rgba(240,223,182,.16);color:#f7e7bd;}
+.sb-item.seen .sb-label{color:#f0dfb6;}
+.toc-card.seen .toc-name::after{content:" ✓";color:#b8860b;font-weight:700;}
+.toc-card.seen .toc-num{box-shadow:0 0 0 2px #e8c76a;}
+.sb-brand.bs-done .sb-brand-line1{text-shadow:0 0 14px rgba(232,199,106,.85);}
+.sb-brand.bs-done .sb-brand-line2::after{content:" · 讀畢 ✓";color:#e8c76a;}
+.sb-lap{margin:6px 8px 2px;text-align:center;font-family:'Noto Sans TC',sans-serif;}
+.sb-lap span{display:block;font-size:.6rem;color:#c9a353;letter-spacing:2px;margin-bottom:3px;}
+.sb-lap a{display:inline-block;font-size:.6rem;color:#f0dfb6;border:1px dashed #c9a353;
+  border-radius:6px;padding:2px 10px;text-decoration:none;letter-spacing:2px;}
+.sb-lap a:hover{border-style:solid;background:rgba(255,240,200,.08);}
+</style><script id="wy-bseen-js">(function(){try{
+var KEY="wySeen:vigrahavyavartani",LK="wyLaps:vigrahavyavartani",N=20,st={},laps=0;
+try{st=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+try{laps=parseInt(localStorage.getItem(LK)||"0",10)||0}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st));localStorage.setItem(LK,String(laps))}catch(e){}}
+function ids(){
+ var out=[];
+ document.querySelectorAll(".sb-item[href^='#chapter-'],.sb-item[href^='#ch-']").forEach(function(a){
+   out.push(a.getAttribute("href").slice(1));});
+ return out;}
+function ok(id){return (st[id]||0)>=N;}
+function allRead(){
+ var L=ids();if(!L.length)return false;
+ for(var i=0;i<L.length;i++){if(!ok(L[i]))return false;}
+ return true;}
+function paint(){
+ var all=allRead();
+ document.querySelectorAll(".sb-item[href^='#chapter-'],.sb-item[href^='#ch-']").forEach(function(a){
+   a.classList[ok(a.getAttribute("href").slice(1))?"add":"remove"]("seen");});
+ document.querySelectorAll(".toc-card[href^='#chapter-'],.toc-card[href^='#ch-']").forEach(function(a){
+   a.classList[ok(a.getAttribute("href").slice(1))?"add":"remove"]("seen");});
+ var b=document.querySelector(".sb-brand");
+ if(b)b.classList[all?"add":"remove"]("bs-done");
+ var t=document.getElementById("bsLapTxt");
+ if(t)t.textContent=all?("第"+(laps+1)+"輪 · 讀畢 ✓"):("讀跡 · 第"+(laps+1)+"輪");
+}
+function ui(){
+ if(document.getElementById("bsLapTxt"))return;
+ var q=document.querySelector(".sb-quick")||document.querySelector(".sb-brand");
+ if(!q||!q.parentNode)return;
+ var d=document.createElement("div");d.className="sb-lap";
+ d.innerHTML='<span id="bsLapTxt"></span><a href="#" id="bsLapRst">↺ 讀跡歸零</a>';
+ q.parentNode.insertBefore(d,q.nextSibling);
+ document.getElementById("bsLapRst").addEventListener("click",function(e){
+   e.preventDefault();
+   var full=allRead();
+   if(!confirm(full?"本輪讀畢！歸零並開始第"+(laps+2)+"輪？":"尚未全讀。確定將讀跡歸零重來？"))return;
+   if(full)laps++;
+   st={};save();paint();});
+}
+var hid=false;
+document.addEventListener("visibilitychange",function(){hid=document.hidden;});
+setInterval(function(){
+ if(hid)return;
+ var mid=window.innerHeight/2,L=ids();
+ for(var i=0;i<L.length;i++){
+   var el=document.getElementById(L[i]);
+   if(!el)continue;
+   var r=el.getBoundingClientRect();
+   if(r.top<mid&&r.bottom>mid){
+     var id=L[i],was=ok(id);
+     st[id]=(st[id]||0)+1;
+     if(st[id]%4===0||(!was&&ok(id)))save();
+     if(!was&&ok(id))paint();
+     break;}}
+},1500);
+function boot(){ui();paint();}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
+}catch(e){}})();</script><!--/WY-BSEEN--></body>
 </html>
