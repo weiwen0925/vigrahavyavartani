@@ -2193,7 +2193,7 @@ function sweep(){ /* 通用補網：可見的右下 fixed 元素（命名漂移�
   var iw=window.innerWidth,ih=window.innerHeight,els=document.body.children,extra=[];
   function scan(list,depth){
     for(var i=0;i<list.length;i++){var el=list[i];
-      if(el.id==="wyDock"||el.id==="wysFab")continue;
+      if(el.id==="wyDock"||el.id==="wysFab"||el.id==="wyMkBar")continue;
       if(/Modal$/.test(el.id||"")||/modal/.test(el.className||""))continue;
       if(/toast|progress|tooltip/i.test(el.className||"")||el.getAttribute("role")==="status"||el.hasAttribute("aria-live"))continue;
       var cs;try{cs=getComputedStyle(el);}catch(e){continue;}
@@ -2472,5 +2472,384 @@ function boot(){
  });
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
-}catch(e){}})();</script><!--/WY-BLQ--></body>
+}catch(e){}})();</script><!--/WY-BLQ--><!--WY-MARK--><style id="wy-mark-css">
+#wyMkBar{position:fixed;right:22px;bottom:82px;z-index:8990;display:flex;align-items:stretch;
+ background:rgba(42,34,24,.95);border:1.2px solid #b8860b;border-radius:999px;overflow:hidden;
+ box-shadow:0 4px 14px rgba(0,0,0,.28);font-family:'Noto Sans TC',sans-serif;
+ -webkit-user-select:none;user-select:none;max-width:calc(100vw - 44px);}
+#wyMkBar button{background:none;border:none;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;}
+#wyMkBar .mkm{display:flex;align-items:center;gap:5px;padding:9px 16px;color:#e8caa0;
+ font-size:14px;letter-spacing:1px;white-space:nowrap;transition:background .16s,color .16s;}
+#wyMkBar .mkm:hover{background:rgba(255,240,200,.10);color:#ffe9b0;}
+#wyMkBar .mkm.mk-hit{background:rgba(232,199,106,.28);color:#fff3d1;}
+#wyMkBar .mkg{display:none;align-items:center;gap:6px;padding:9px 13px 9px 12px;color:#f0dfb6;
+ font-size:13.5px;letter-spacing:1px;border-left:1px dashed rgba(184,134,11,.8);min-width:0;
+ transition:background .16s,color .16s;}
+#wyMkBar.mk-has .mkg{display:flex;}
+#wyMkBar .mkg:hover{background:rgba(255,240,200,.10);color:#ffe9b0;}
+#wyMkBar .mkb{color:#e8c76a;font-weight:700;flex:none;}
+#wyMkBar .mkw{max-width:210px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;
+ font-family:'Noto Serif TC',serif;}
+#wyMkBar .mkx{flex:none;opacity:.5;font-size:12px;line-height:1;padding:3px 4px;border-radius:5px;}
+#wyMkBar .mkx:hover{opacity:1;background:rgba(255,240,200,.16);}
+#wyMkToast{position:fixed;right:22px;bottom:138px;z-index:8992;background:rgba(20,14,9,.96);
+ border:1px solid #c9a353;border-radius:9px;color:#f7e7bd;font-family:'Noto Serif TC',serif;
+ font-size:13px;letter-spacing:1px;padding:8px 12px;box-shadow:0 4px 14px rgba(0,0,0,.5);
+ max-width:min(66vw,330px);opacity:0;transform:translateY(6px);pointer-events:none;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+ transition:opacity .2s ease,transform .2s ease;}
+#wyMkToast.on{opacity:1;transform:translateY(0);}
+@media(max-width:640px){
+ #wyMkBar{right:14px;}
+ #wyMkBar .mkm{padding:8px 13px;font-size:13px;}
+ #wyMkBar .mkg{padding:8px 11px;font-size:12.5px;}
+ #wyMkBar .mkw{max-width:104px;}
+ #wyMkToast{right:14px;font-size:12.5px;max-width:74vw;}}
+#wyMkGo{margin:0 0 14px;font-family:'Noto Sans TC',sans-serif;}
+#wyMkGo .mkl-h{margin:0 0 7px;color:#c9a353;font-size:.68rem;letter-spacing:3px;}
+#wyMkGo .mkl-h b{color:#e8c76a;font-weight:700;}
+#wyMkGo .mkl-e{margin:0;color:#8a7a62;font-size:.72rem;letter-spacing:1px;line-height:1.9;}
+#wyMkGo .mkl-i{display:flex;align-items:baseline;gap:9px;width:100%;text-align:left;cursor:pointer;
+ background:rgba(240,223,182,.05);border:1px solid rgba(201,163,83,.35);border-radius:9px;
+ padding:8px 11px;margin:0 0 6px;font-family:inherit;color:#f0dfb6;
+ transition:background .16s,border-color .16s;}
+#wyMkGo .mkl-i:hover{background:rgba(255,240,200,.11);border-color:#e3c085;}
+#wyMkGo .mkl-n{flex:none;color:#e8c76a;font-size:.76rem;letter-spacing:1px;font-weight:700;}
+#wyMkGo .mkl-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+ font-family:'Noto Serif TC',serif;font-size:.82rem;}
+#wyMkGo .mkl-d{flex:none;color:#8a7a62;font-size:.64rem;}
+#wyMkGo .mkl-i.mkl-here .mkl-d::before{content:"本頁 · ";color:#c9a353;}
+@media print{#wyMkBar,#wyMkToast{display:none!important;}}
+@media(prefers-reduced-motion:reduce){#wyMkBar .mkm,#wyMkBar .mkg,#wyMkToast{transition:none;}}
+</style><script id="wy-mark-js">(function(){try{
+var IDX="wyMarkIdx",JP="wyMarkJump";
+function slug(){
+ var p=(location.pathname||"").replace(/^\/+|\/+$/g,"").replace(/\.html?$/i,"");
+ if(/(^|\/)index$/i.test(p))p=p.replace(/(^|\/)index$/i,"");
+ p=p.replace(/^\/+|\/+$/g,"");
+ return p||"root";
+}
+var SK=slug(),REPO=SK.split("/")[0],LAST=SK.split("/").pop(),K="wyMark:"+SK;
+var NAMES={"nagarjuna-mulamadhyamakakarika":"中論","twelve-gates":"十二門論","bailun":"百論",
+ "vigrahavyavartani":"迴諍論","pratyutpanna-samadhi-sutra":"般舟三昧經",
+ "zuochan-sanmei-jing":"坐禪三昧經","surangama-samadhi-sutra":"首楞嚴三昧經"};
+function siteName(){
+ if(LAST==="daozang")return "刀藏";
+ if(LAST==="yuku")return "譬喻藏";
+ if(NAMES[REPO])return NAMES[REPO];
+ var m=REPO.match(/^dazhidulun-(\d+)$/);
+ if(m)return m[1]==="0"?"大智度論 門頁":("智論 卷"+m[1]);
+ var t=(document.title||"").split(/[｜|·・—－]/)[0].replace(/\s+/g," ").trim();
+ return t.slice(0,16)||REPO;
+}
+var NAME=siteName();
+function sy(){return window.pageYOffset||document.documentElement.scrollTop||0;}
+function topOf(el){return el.getBoundingClientRect().top+sy();}
+function clean(t){return (t||"").replace(/\s+/g," ").trim();}
+function numOf(id){var m=String(id).match(/(\d+)\s*$/);return m?parseInt(m[1],10):0;}
+var SEC="section.chapter[id],section.dao[id],section.jv[id],section.zl-p[id]";
+function ids(){
+ var out=[],ns=document.querySelectorAll(SEC),i;
+ for(i=0;i<ns.length;i++){if(ns[i].id)out.push(ns[i].id);}
+ return out;
+}
+function titleOf(id){
+ var el=document.getElementById(id);if(!el)return id;
+ var n=el.querySelector(".ch-name");
+ if(n&&clean(n.textContent))return clean(n.textContent);
+ var h=el.querySelector("h3,h2");
+ if(h){
+  var c=h.cloneNode(true),kn=c.querySelector(".kn"),knt=kn?clean(kn.textContent):"";
+  var junk=c.querySelectorAll("button,small,span,.anc,.dref,.dchip,.dseal,.cpn"),j;
+  for(j=0;j<junk.length;j++){if(junk[j].parentNode)junk[j].parentNode.removeChild(junk[j]);}
+  var rest=clean(c.textContent);
+  if(knt||rest)return (knt?(knt+"・"):"")+rest;
+ }
+ var nu=el.querySelector(".ch-num");
+ return (nu&&clean(nu.textContent))||id;
+}
+function hidden(el){
+ try{
+  if(el.offsetParent!==null)return false;
+  var cs=getComputedStyle(el);
+  if(cs.display==="none"||cs.visibility==="hidden")return true;
+  if(cs.position==="fixed")return false;      /* fixed 元素本來就沒有 offsetParent */
+  var r=el.getBoundingClientRect();           /* 祖先被藏起來時：自身 display 仍是 block，但量不到大小 */
+  return !(r.width||r.height);
+ }catch(e){return false;}
+}
+function cur(){
+ var mid=window.innerHeight*0.42,best=null,bt=-1e9,L=ids(),j,el,r;
+ for(j=0;j<L.length;j++){el=document.getElementById(L[j]);if(!el||hidden(el))continue;
+  r=el.getBoundingClientRect();if(r.top<=mid&&r.top>bt){bt=r.top;best=L[j];}}
+ return best;
+}
+function load(){try{var v=JSON.parse(localStorage.getItem(K)||"null");return (v&&v.h)?v:null;}catch(e){return null;}}
+/* 譬喻藏有「依卷／依頌」兩檢視，書籤若在沒顯示的那一邊，先替讀者切過去 */
+function switchView(el){
+ try{
+  var v=el.closest?el.closest("#view-juan,#view-song"):null;
+  if(!v)return false;
+  var tab=document.getElementById(v.id.replace("view-","tab-"));
+  if(!tab)return false;
+  tab.click();return true;
+ }catch(e){return false;}
+}
+function build(){
+var bar=document.createElement("nav");
+bar.id="wyMkBar";bar.setAttribute("aria-label","續讀書籤");
+var mk=document.createElement("button");
+mk.type="button";mk.className="mkm";
+mk.title="記下讀處——關掉網頁，下次回來按「續讀」接續";
+mk.setAttribute("aria-label","記下讀處");
+mk.textContent="⌖ 記讀處";
+var gm=document.createElement("button");
+gm.type="button";gm.className="mkg";
+gm.title="回到上次記下的地方";
+var gb=document.createElement("span");gb.className="mkb";gb.textContent="▸ 續讀";
+var gw=document.createElement("span");gw.className="mkw";
+var gx=document.createElement("span");gx.className="mkx";gx.textContent="✕";
+gx.title="清除書籤";
+gm.appendChild(gb);gm.appendChild(gw);gm.appendChild(gx);
+bar.appendChild(mk);bar.appendChild(gm);
+document.body.appendChild(bar);
+var toast=document.createElement("p");toast.id="wyMkToast";document.body.appendChild(toast);
+/* 自動讓位：掃右下角所有可見的 fixed 小元件（☰ 工具櫃／⚔ 闖關／閱讀進度膠囊／
+   譬喻藏的尋喻開關…），疊在最高者之上。不寫死 id，日後新增浮動鈕也不會撞。 */
+function lowRight(){
+ var out=[],vw=window.innerWidth,ih=window.innerHeight;
+ function take(el){
+  if(!el||el===bar||el===toast)return;
+  var cs;try{cs=getComputedStyle(el);}catch(e){return;}
+  if(cs.position!=="fixed"||cs.display==="none"||cs.visibility==="hidden")return;
+  var r=el.getBoundingClientRect();
+  if(r.width>0&&r.width<=520&&r.height>0&&r.height<=220
+     &&r.right>=vw-360&&r.bottom<=ih-4&&r.bottom>=ih-560)out.push(r);
+ }
+ /* 已知的右下常客先點名（有些藏在容器裡，掃不到）*/
+ var pre=["wyDock","dzTog","ykqTog","readProgress","backTop"],pi;
+ for(pi=0;pi<pre.length;pi++)take(document.getElementById(pre[pi]));
+ take(document.querySelector(".read-progress"));
+ function scan(list,depth){
+  var cap=depth?40:400;
+  for(var i=0;i<list.length&&i<cap;i++){
+   var el=list[i];
+   if(el===bar||el===toast)continue;
+   if(/Modal$/.test(el.id||"")||/modal|overlay/i.test(el.className||""))continue;
+   var cs;try{cs=getComputedStyle(el);}catch(e){continue;}
+   if(cs.position==="fixed"&&cs.display!=="none"&&cs.visibility!=="hidden"){
+    var r=el.getBoundingClientRect();
+    if(r.width>0&&r.width<=520&&r.height>0&&r.height<=220
+       &&r.right>=vw-360&&r.bottom<=ih-4&&r.bottom>=ih-560){out.push(r);continue;}
+   }
+   if(depth<1&&el.children&&el.children.length&&el.children.length<40)scan(el.children,depth+1);
+  }
+ }
+ try{scan(document.body.children,0);}catch(e){}
+ return out;
+}
+function place(){
+ try{
+  var ih=window.innerHeight,pass,need=window.innerWidth<=640?18:24;
+  for(pass=0;pass<2;pass++){
+   var br=bar.getBoundingClientRect(),got=need,rs=lowRight();
+   for(var i=0;i<rs.length;i++){
+    var r=rs[i];
+    if(r.right<=br.left||r.left>=br.right)continue;   /* 左右不相干就不必讓 */
+    var want=Math.round(ih-r.top+10);
+    if(want>got)got=want;
+   }
+   if(got<24)got=24;
+   if(got>Math.round(ih*0.5))got=Math.round(ih*0.5);
+   bar.style.bottom=got+"px";
+   toast.style.bottom=(got+Math.round(bar.getBoundingClientRect().height)+10)+"px";
+   need=got;
+  }
+ }catch(e){}
+}
+var tmr=null;
+function say(msg){
+ toast.textContent=msg;toast.classList.add("on");
+ if(tmr)clearTimeout(tmr);
+ tmr=setTimeout(function(){toast.classList.remove("on");tmr=null;},2600);
+}
+function far(v){
+ var el=document.getElementById(v.h);if(!el)return false;
+ if(hidden(el))return true;
+ return Math.abs(sy()-(topOf(el)+(v.dy||0)))>window.innerHeight*0.75;
+}
+var hasNow=null;
+function paint(){
+ var v=load(),on=!!(v&&far(v));
+ if(on){gw.textContent=v.t||v.h;bar.classList.add("mk-has");}
+ else{bar.classList.remove("mk-has");}
+ if(on!==hasNow){hasNow=on;place();}
+}
+function save(){
+ var id=cur();
+ var el=id?document.getElementById(id):null;
+ if(!el){say("這裡還沒進入正文，捲到內文再記");return;}
+ var v={v:2,k:SK,n:NAME,u:location.origin+location.pathname,h:id,
+        dy:Math.round(sy()-topOf(el)),t:titleOf(id),ts:Date.now()};
+ var okw=false;
+ try{localStorage.setItem(K,JSON.stringify(v));okw=(localStorage.getItem(K)||"").length>0;}catch(e){okw=false;}
+ if(!okw){say("此瀏覽器不允許儲存（無痕模式？）");return;}
+ try{var a=[];try{a=JSON.parse(localStorage.getItem(IDX)||"[]")||[];}catch(e2){a=[];}
+  if(Object.prototype.toString.call(a)!=="[object Array]")a=[];
+  a=a.filter(function(o){return o&&o.k!==SK;});a.unshift(v);
+  localStorage.setItem(IDX,JSON.stringify(a.slice(0,12)));}catch(e3){}
+ mk.classList.remove("mk-hit");void mk.offsetWidth;mk.classList.add("mk-hit");
+ setTimeout(function(){mk.classList.remove("mk-hit");},600);
+ say("已記下 · "+v.t);
+ paint();
+}
+/* 落點收斂：懶載入的章節跳過去之後高度還會變，故反覆重算直到連續穩定；讀者一動手就讓位 */
+function jump(){
+ var v=load();if(!v)return;
+ var n=numOf(v.h);
+ try{if(n&&window.__zlLazy&&window.__zlLazy.hydrate){var q;for(q=1;q<=n;q++)window.__zlLazy.hydrate(q);}}catch(e5){}
+ var el=document.getElementById(v.h);
+ if(!el){say("這一處已不在頁面上");return;}
+ if(hidden(el)&&switchView(el)){setTimeout(jump,320);return;}
+ if(hidden(el)){say("這一段目前沒顯示——在另一個檢視或闖關模式下，切換後再續讀");return;}
+ var tries=0,stable=0,quit=false;
+ function bail(){quit=true;}
+ window.addEventListener("wheel",bail,{once:true,passive:true});
+ window.addEventListener("touchstart",bail,{once:true,passive:true});
+ (function step(){
+  if(quit){paint();return;}
+  var y=Math.max(0,topOf(el)+(v.dy||0));
+  if(Math.abs(sy()-y)>3){window.scrollTo(0,y);stable=0;}else{stable++;}
+  if(++tries<130&&stable<12){setTimeout(step,120);}
+  else{window.removeEventListener("wheel",bail);window.removeEventListener("touchstart",bail);paint();}
+ })();
+}
+mk.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();save();});
+gm.addEventListener("click",function(e){
+ e.preventDefault();e.stopPropagation();
+ if(e.target===gx){
+  if(!window.confirm("清除「"+NAME+"」的續讀書籤？"))return;
+  try{localStorage.removeItem(K);}catch(e2){}
+  try{var a=JSON.parse(localStorage.getItem(IDX)||"[]")||[];
+   localStorage.setItem(IDX,JSON.stringify(a.filter(function(o){return o&&o.k!==SK;})));}catch(e3){}
+  say("書籤已清除");paint();return;}
+ jump();
+});
+/* 保險絲：右下收納櫃（fabdock sweep）若把書籤條收了進去就搬回框外。
+   部署時已把 wyMkBar 加進 sweep 排除名單，此處只是防呆；最多三次，不與收納櫃拉鋸。 */
+var esc=0;
+setInterval(function(){try{
+ if(esc<3&&bar.parentNode&&bar.parentNode.id==="wyDockTray"){esc++;document.body.appendChild(bar);place();}
+}catch(e6){}},1500);
+var tk=null;
+window.addEventListener("scroll",function(){if(tk)return;
+ tk=setTimeout(function(){tk=null;paint();},260);},{passive:true});
+window.addEventListener("resize",function(){paint();},{passive:true});
+try{var jp=JSON.parse(localStorage.getItem(JP)||"null");
+ if(jp&&jp.k===SK&&(Date.now()-(jp.ts||0))<180000){
+  localStorage.removeItem(JP);setTimeout(jump,600);}
+}catch(e4){}
+place();
+setTimeout(paint,300);
+setTimeout(place,1500);
+setTimeout(place,4000);
+}
+/* 開工條件：①防護層放行（有 #wy-preguard 就等 html.wy-revealed，沒有就算放行）
+   ②章節已在 DOM（有些站的正文是解碼後才掛上來的，早跑會看不到章節）。
+   兩者齊備才長書籤條；30 秒都等不到就安靜收工（門頁那種無章節的頁本來就不該有）。 */
+/* ══ 尋面板頂端的「續讀」列 ══
+   與書籤條各自獨立：沒有章節的頁（門頁）長不出書籤條，但仍該列得出各站書籤。
+   清單真源＝wyMarkIdx；每列點下去：本頁→直接叫書籤條的「續讀」；他站→
+   寫 wyMarkJump 再導過去，該站開頁後自動落點。 */
+function panelHost(){return document.getElementById("wyResults")||
+ document.getElementById("wysResults")||document.getElementById("vtSResults");}
+function readIdx(){
+ var a=[];
+ try{a=JSON.parse(localStorage.getItem(IDX)||"[]")||[];}catch(e){a=[];}
+ if(Object.prototype.toString.call(a)!=="[object Array]")a=[];
+ var out=[],dirty=false,i;
+ for(i=0;i<a.length;i++){
+  var o=a[i];
+  if(!o||!o.k||!o.u||!o.h){dirty=true;continue;}
+  var still=null;
+  try{still=localStorage.getItem("wyMark:"+o.k);}catch(e2){still="x";}
+  if(!still){dirty=true;continue;}      /* 那站的書籤被清掉了就不再列 */
+  out.push(o);
+ }
+ if(dirty){try{localStorage.setItem(IDX,JSON.stringify(out));}catch(e3){}}
+ return out;
+}
+function stamp(ts){try{var d=new Date(ts);return (d.getMonth()+1)+"/"+d.getDate();}catch(e){return "";}}
+function renderList(nav){
+ while(nav.firstChild)nav.removeChild(nav.firstChild);
+ var rows=readIdx(),h=document.createElement("p");
+ h.className="mkl-h";
+ h.appendChild(document.createTextNode("續讀 · "));
+ var b=document.createElement("b");b.textContent="上次讀到";h.appendChild(b);
+ nav.appendChild(h);
+ if(!rows.length){
+  var e=document.createElement("p");e.className="mkl-e";
+  e.textContent="還沒有書籤——讀到一半，按右下「⌖ 記讀處」記一下，這裡就會列出來。";
+  nav.appendChild(e);return;
+ }
+ for(var i=0;i<rows.length&&i<6;i++){
+  (function(o){
+   var it=document.createElement("button");
+   it.type="button";it.className="mkl-i"+(o.k===SK?" mkl-here":"");
+   var n=document.createElement("span");n.className="mkl-n";n.textContent=o.n||o.k;
+   var t=document.createElement("span");t.className="mkl-t";t.textContent=o.t||o.h;
+   var d=document.createElement("span");d.className="mkl-d";d.textContent=stamp(o.ts);
+   it.appendChild(n);it.appendChild(t);it.appendChild(d);
+   it.addEventListener("click",function(ev){
+    ev.preventDefault();ev.stopPropagation();
+    if(o.k===SK){
+     var m=document.getElementById("wysModal")||document.getElementById("vtSModal");
+     if(m)m.classList.remove("show");
+     try{document.documentElement.style.overflow="";}catch(e){}
+     var g=document.querySelector("#wyMkBar .mkg");
+     if(g)g.click();
+     return;
+    }
+    try{localStorage.setItem(JP,JSON.stringify({k:o.k,ts:Date.now()}));}catch(e2){}
+    location.href=o.u;
+   });
+   nav.appendChild(it);
+  })(rows[i]);
+ }
+}
+function mountList(){
+ if(document.getElementById("wyMkGo"))return true;
+ var host=panelHost();
+ if(!host||!host.parentNode)return false;
+ var nav=document.createElement("nav");
+ nav.id="wyMkGo";nav.setAttribute("aria-label","續讀清單");
+ host.parentNode.insertBefore(nav,host);
+ renderList(nav);
+ var modal=document.getElementById("wysModal")||document.getElementById("vtSModal");
+ if(modal&&window.MutationObserver){
+  try{new MutationObserver(function(){
+   if(modal.classList.contains("show"))renderList(nav);
+  }).observe(modal,{attributes:true,attributeFilter:["class"]});}catch(e){}
+ }
+ return true;
+}
+(function(){
+ if(mountList())return;
+ var n=0,t=setInterval(function(){
+  if(mountList()||++n>60)clearInterval(t);
+ },300);
+})();
+(function(){
+ var el=document.documentElement,n=0;
+ function ready(){
+  var pg=document.getElementById("wy-preguard");
+  return (!pg||el.classList.contains("wy-revealed"))&&ids().length>0;
+ }
+ if(ready()){build();return;}
+ var t=setInterval(function(){
+  if(ready()){clearInterval(t);build();return;}
+  if(++n>300)clearInterval(t);
+ },100);
+})();
+}catch(e){}})();</script><!--/WY-MARK--></body>
 </html>
