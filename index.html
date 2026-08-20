@@ -2584,6 +2584,28 @@ function cur(){
   r=el.getBoundingClientRect();if(r.top<=mid&&r.top>bt){bt=r.top;best=L[j];}}
  return best;
 }
+function norm(u){return String(u||"").replace(/index\.html?$/i,"").replace(/\/+$/,"");}
+function here(){return location.origin+location.pathname;}
+function sameHere(u){return norm(u)===norm(here());}
+/* 舊版鍵名認領：v1 的站鍵是人工取的（zhonglun／daozang），v2 改由網址推出。
+   本頁若還沒有新鍵書籤，就從 wyMarkIdx 找「網址等於本頁」的那一筆接手、把鍵改正，
+   讀者原本記的位置不會因為改版而不見。 */
+function adopt(){
+ try{
+  if(localStorage.getItem(K))return;
+  var a=[];try{a=JSON.parse(localStorage.getItem(IDX)||"[]")||[];}catch(e){return;}
+  if(Object.prototype.toString.call(a)!=="[object Array]")return;
+  for(var i=0;i<a.length;i++){
+   var o=a[i];
+   if(!o||!o.u||!o.h||o.k===SK||!sameHere(o.u))continue;
+   var oldk=o.k;o.k=SK;o.n=o.n||NAME;o.u=here();
+   localStorage.setItem(K,JSON.stringify(o));
+   try{if(oldk)localStorage.removeItem("wyMark:"+oldk);}catch(e2){}
+   localStorage.setItem(IDX,JSON.stringify(a));
+   return;
+  }
+ }catch(e){}
+}
 function load(){try{var v=JSON.parse(localStorage.getItem(K)||"null");return (v&&v.h)?v:null;}catch(e){return null;}}
 /* 譬喻藏有「依卷／依頌」兩檢視，書籤若在沒顯示的那一邊，先替讀者切過去 */
 function switchView(el){
@@ -2689,7 +2711,7 @@ function save(){
  var id=cur();
  var el=id?document.getElementById(id):null;
  if(!el){say("這裡還沒進入正文，捲到內文再記");return;}
- var v={v:2,k:SK,n:NAME,u:location.origin+location.pathname,h:id,
+ var v={v:2,k:SK,n:NAME,u:here(),h:id,
         dy:Math.round(sy()-topOf(el)),t:titleOf(id),ts:Date.now()};
  var okw=false;
  try{localStorage.setItem(K,JSON.stringify(v));okw=(localStorage.getItem(K)||"").length>0;}catch(e){okw=false;}
@@ -2746,8 +2768,13 @@ window.addEventListener("scroll",function(){if(tk)return;
  tk=setTimeout(function(){tk=null;paint();},260);},{passive:true});
 window.addEventListener("resize",function(){paint();},{passive:true});
 try{var jp=JSON.parse(localStorage.getItem(JP)||"null");
- if(jp&&jp.k===SK&&(Date.now()-(jp.ts||0))<180000){
-  localStorage.removeItem(JP);setTimeout(jump,600);}
+ if(jp&&(Date.now()-(jp.ts||0))<180000&&(jp.k===SK||sameHere(jp.u))){
+  localStorage.removeItem(JP);
+  if(jp.h&&!localStorage.getItem(K)){
+   localStorage.setItem(K,JSON.stringify({v:2,k:SK,n:jp.n||NAME,u:here(),
+    h:jp.h,dy:jp.dy||0,t:jp.t||jp.h,ts:jp.ts||Date.now()}));
+  }
+  setTimeout(jump,600);}
 }catch(e4){}
 place();
 setTimeout(paint,300);
@@ -2810,7 +2837,8 @@ function renderList(nav){
      if(g)g.click();
      return;
     }
-    try{localStorage.setItem(JP,JSON.stringify({k:o.k,ts:Date.now()}));}catch(e2){}
+    try{localStorage.setItem(JP,JSON.stringify(
+      {k:o.k,u:o.u,h:o.h,dy:o.dy,t:o.t,n:o.n,ts:Date.now()}));}catch(e2){}
     location.href=o.u;
    });
    nav.appendChild(it);
@@ -2833,6 +2861,7 @@ function mountList(){
  }
  return true;
 }
+adopt();
 (function(){
  if(mountList())return;
  var n=0,t=setInterval(function(){
