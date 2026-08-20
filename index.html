@@ -2193,7 +2193,7 @@ function sweep(){ /* 通用補網：可見的右下 fixed 元素（命名漂移�
   var iw=window.innerWidth,ih=window.innerHeight,els=document.body.children,extra=[];
   function scan(list,depth){
     for(var i=0;i<list.length;i++){var el=list[i];
-      if(el.id==="wyDock"||el.id==="wysFab"||el.id==="wyMkBar")continue;
+      if(el.id==="wyDock"||el.id==="wysFab"||/^wyMk/.test(el.id||""))continue;
       if(/Modal$/.test(el.id||"")||/modal/.test(el.className||""))continue;
       if(/toast|progress|tooltip/i.test(el.className||"")||el.getAttribute("role")==="status"||el.hasAttribute("aria-live"))continue;
       var cs;try{cs=getComputedStyle(el);}catch(e){continue;}
@@ -2670,8 +2670,24 @@ function lowRight(){
  try{scan(document.body.children,0);}catch(e){}
  return out;
 }
+function dockOpen(){
+ try{var d=document.getElementById("wyDock");
+  if(!d)return false;
+  if(getComputedStyle(d).display==="none")return false;
+  return !d.classList.contains("wy-closed");}catch(e){return false;}
+}
+var dkObs=false;
+function watchDock(){
+ if(dkObs||!window.MutationObserver)return;
+ var d=document.getElementById("wyDock");if(!d)return;
+ try{new MutationObserver(function(){place();}).observe(d,{attributes:true,attributeFilter:["class","style"]});dkObs=true;}catch(e){}
+}
 function place(){
  try{
+  watchDock();
+  /* 工具櫃一打開，抽屜裡的膠囊會往上長；此時書籤條先收起來，關上再回來 */
+  if(dockOpen()){bar.style.display="none";toast.style.display="none";return;}
+  bar.style.display="";toast.style.display="";
   var ih=window.innerHeight,pass,need=window.innerWidth<=640?18:24;
   for(pass=0;pass<2;pass++){
    var br=bar.getBoundingClientRect(),got=need,rs=lowRight();
@@ -2761,7 +2777,11 @@ gm.addEventListener("click",function(e){
    部署時已把 wyMkBar 加進 sweep 排除名單，此處只是防呆；最多三次，不與收納櫃拉鋸。 */
 var esc=0;
 setInterval(function(){try{
- if(esc<3&&bar.parentNode&&bar.parentNode.id==="wyDockTray"){esc++;document.body.appendChild(bar);place();}
+ if(esc>=3)return;
+ var moved=false;
+ if(bar.parentNode&&bar.parentNode.id==="wyDockTray"){document.body.appendChild(bar);moved=true;}
+ if(toast.parentNode&&toast.parentNode.id==="wyDockTray"){document.body.appendChild(toast);moved=true;}
+ if(moved){esc++;place();}
 }catch(e6){}},1500);
 var tk=null;
 window.addEventListener("scroll",function(){if(tk)return;
